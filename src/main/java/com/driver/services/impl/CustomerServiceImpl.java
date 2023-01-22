@@ -79,7 +79,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customer = new Customer();
 
-
+		List<TripBooking> tripBookingList1 = customer.getTripBookingList();
+		tripBookingList1.add(tripBooking);
 
 		driverRepository2.save(driver);
 		customerRepository2.save(customer);
@@ -92,8 +93,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 		TripBooking tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.COMPLETED);
-		tripBooking.setFromLocation("BTM Layout");
-		tripBooking.setToLocation("Double Road");
+		tripBooking.setFromLocation("BTM");
+		tripBooking.setToLocation("Doubleroad");
 		tripBooking.setDistanceInKm(5);
 		tripBooking.setBill(100);
 
