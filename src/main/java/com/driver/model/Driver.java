@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "drivers")
 public class Driver {
 
     @Id
@@ -17,18 +19,16 @@ public class Driver {
     @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
     private Cab cab;
 
-    @OneToMany(mappedBy = "drivers", cascade = CascadeType.ALL)
-    private List<TripBooking> tripBooking = new ArrayList<>();
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    private List<TripBooking> tripBookings = new ArrayList<>();
 
-    public Driver() {
-    }
-
-    public Driver(int driverId, String mobile, String password, Cab cab, List<TripBooking> tripBooking) {
-        this.driverId = driverId;
+    public Driver(String mobile, String password) {
         this.mobile = mobile;
         this.password = password;
-        this.cab = cab;
-        this.tripBooking = tripBooking;
+        //this.setTripBookings(new ArrayList<TripBooking>());
+    }
+
+    public Driver() {
     }
 
     public int getDriverId() {
@@ -63,11 +63,11 @@ public class Driver {
         this.cab = cab;
     }
 
-    public List<TripBooking> getTripBooking() {
-        return tripBooking;
+    public List<TripBooking> getTripBookings() {
+        return tripBookings;
     }
 
-    public void setTripBooking(List<TripBooking> tripBooking) {
-        this.tripBooking = tripBooking;
+    public void setTripBookings(List<TripBooking> tripBookings) {
+        this.tripBookings = tripBookings;
     }
 }

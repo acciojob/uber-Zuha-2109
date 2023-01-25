@@ -2,7 +2,10 @@ package com.driver.model;
 
 import javax.persistence.*;
 
+@Entity
+@Table(name = "tripBooking")
 public class TripBooking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int tripBookingId;
@@ -13,31 +16,37 @@ public class TripBooking {
 
     private int distanceInKm;
 
-    @Enumerated(EnumType.STRING)
-    private TripStatus status;
-
     private int bill;
+
+    @ManyToOne
+    @JoinColumn
+    private Driver driver;
 
     @ManyToOne
     @JoinColumn
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn
-    private Driver drivers;
+    @Enumerated(value = EnumType.STRING)
+    private TripStatus tripStatus;
+
+    public TripStatus getStatus() {
+        return tripStatus;
+    }
+
+    public void setStatus(TripStatus tripStatus) {
+        this.tripStatus = tripStatus;
+    }
 
     public TripBooking() {
     }
 
-    public TripBooking(int tripBookingId, String fromLocation, String toLocation, int distanceInKm, TripStatus status, int bill, Customer customer, Driver driver) {
-        this.tripBookingId = tripBookingId;
+    public TripBooking(String fromLocation, String toLocation, int distanceInKm, int bill) {
+
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.distanceInKm = distanceInKm;
-        this.status = status;
         this.bill = bill;
-        this.customer = customer;
-        this.drivers = driver;
+
     }
 
     public int getTripBookingId() {
@@ -72,14 +81,6 @@ public class TripBooking {
         this.distanceInKm = distanceInKm;
     }
 
-    public TripStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TripStatus status) {
-        this.status = status;
-    }
-
     public int getBill() {
         return bill;
     }
@@ -88,19 +89,19 @@ public class TripBooking {
         this.bill = bill;
     }
 
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public Driver getDriver() {
-        return drivers;
-    }
-
-    public void setDriver(Driver driver) {
-        this.drivers = driver;
     }
 }
